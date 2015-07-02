@@ -1,0 +1,109 @@
+<ion-view view-title="Schedule" ng-init="getData()">
+    <ion-content class="Scheduler-img" scroll="false" style = "background-color:#f4f9fd">
+        <div class="row padding">
+            <div class="col col-100 swipe-box" detect-gestures gesture-type="swipe">
+                <div class="calendar" ng-model="events" calendar="myCalendar1" ui-calendar="uiConfig.calendar"></div>
+            </div>
+        </div>
+        
+        
+        <ion-list>
+            <ion-item ng-repeat="myassignment in myassignments"
+                      Style="border-style: none;background-color:transparent;padding-bottom:0px ">
+                <div class="card" style="margin:0px;padding: 0px" ng-click="editTask(myassignment._id, myassignment)">
+                    <div class="row">
+                        <div class="col col-25">
+                            <h3 style="line-height: 30px;color: white;vertical-align: middle;background-color: #183058;border-radius:0;width: 80px;height: 31px;font-size: 18px;  font-family: myFont;font-weight: 100;"
+                                class="rounded text-center good-bg button-block positive button-small dark-border">
+                                {{myassignment.Scheduled_Visit_Date_Time__c | date : 'shortTime'}}
+                            </h3>
+                        </div>
+                        <div class="col col-25">
+                            <h4 style="line-height: 15px;background-color: #bcbec0;color: white;border-radius: 0;  width: 80px;height: 31px;margin-left: 12px;"
+                                class="rounded text-center stable-bg positive button-small dark-border">VISIT TIME<br>{{myassignment.minutes}}
+                            </h4>
+                        </div>
+                        <div class="col col-33">
+                            <button type="button" class="button button-block button-small"
+                                    style="margin-top: 0px;background-color:#115393;color:white;border-radius:4px;  width: 140px;height: 33px;margin-left: 21px;font-size: 21px;"
+                                    ng-click="getMapDirection(e,myassignment.tasks[0].Store__c.MALatitude__c,myassignment.tasks[0].Store__c.MALongitude__c)">
+                                Get Directions
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: -5px">
+                        <div class="col col-50">
+                            <h2 style="font-size:18px!important;color: #387EF5!important;">{{myassignment.tasks[0].Store__c.Name}}</h2>
+                        </div>
+                        <div class="col col-50" style="text-align:right;  padding-right: 1em!important;">
+                            {{myassignment.Name}}
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: -15px;!important">
+                        <div class="col">
+                            <h4>    
+                                {{myassignment.tasks[0].Store__c.Store_Address__c}}
+                                <br>
+                                {{myassignment.tasks[0].Store__c.City__c}},
+                                {{myassignment.tasks[0].Store__c.Store_State__c[0]}}
+                                {{myassignment.tasks[0].Store__c.Zip_Code__c}}
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </ion-item>
+        </ion-list>
+        
+    </ion-content>
+    <script id="templates/sheduleEvent.html" type="text/ng-template">
+        <ion-modal-view style="width:90%;min-height: 250px;top: 33%; left: 5%; right: 5%; bottom: 33%;">
+            <ion-header-bar class="bar-positive">
+                <h1 class="title"></h1>
+
+                <div class="buttons">
+                    <button class="button icon ion-close button-small button-positive"
+                            ng-click="closeEventModal()"></button>
+                </div>
+            </ion-header-bar>
+            <ion-content style="height: 100%;" scroll="false"
+                         ng-click="OpenTask(currentAssignment.id, currentAssignment)">
+                <div class="row">
+                    <div class="col col-25">
+                        <h3 style="line-height: 30px;color: white;vertical-align: middle;"
+                            class="rounded text-center good-bg button-block positive button-small dark-border">
+                            {{currentAssignment.assignmentdate| date : 'shortTime'}}
+                        </h3>
+                    </div>
+                    <div class="col col-25">
+                        <h3 style="line-height: 15px"
+                            class="rounded text-center stable-bg positive button-small dark-border">VISIT TIME<br>{{currentAssignment.assignmentminutes}}
+                        </h3>
+                    </div>
+                    <div class="col col-33 col-offset-10">
+                        <button type="button" class="button button-block button-small button-assertive"
+                                style="margin-top: 0px"
+                                ng-click="OpenMap(e,currentAssignment.latitude,currentAssignment.longitude)">
+                            Get Directions
+                        </button>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: -5px">
+                    <div class="col">
+                        <h2>{{currentAssignment.title}}</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h4>
+                            {{currentAssignment.address}}
+                            <br>
+                            {{currentAssignment.city}},
+                            {{currentAssignment.state}}
+                            {{currentAssignment.zipCode}}
+                        </h4>
+                    </div>
+                </div>
+            </ion-content>
+        </ion-modal-view>
+    </script>
+</ion-view>

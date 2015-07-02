@@ -1,0 +1,553 @@
+@font-face {
+    font-family: myFont;
+    src: url("fonts/HelveticaNeue.ttf");
+}
+/** Styling for the username field **/
+label.item-input-wrapper.has-error {
+    border-bottom: 2px solid red;
+}
+
+/** Styling for the password field when an error exists**/
+label.item-input-wrapper.has-error-lr {
+    border-left: 2px solid red;
+    border-right: 2px solid red;
+}
+
+/** Styling for the password field when an error has been resolved**/
+label.item-input-wrapper.valid-lr {
+    border-left: 2px solid green;
+    border-right: 2px solid green;
+}
+
+/** Styling for the error text and container **/
+.form-errors {
+    margin: 5px 0
+}
+.form-error {
+    padding: 2px 0 2px 16px;
+    color: red;
+}
+[name=image] {
+    transform-origin: top left; /* IE 10+, Firefox, etc. */
+    -webkit-transform-origin: top left; /* Chrome */
+    -ms-transform-origin: top left; /* IE 9 */
+}
+[name=image].rotate90 {
+    transform: rotate(90deg) translateY(-100%);
+    -webkit-transform: rotate(90deg) translateY(-100%);
+    -ms-transform: rotate(90deg) translateY(-100%);
+}
+[name=image].rotate180 {
+    transform: rotate(180deg) translate(-100%,-100%);
+    -webkit-transform: rotate(180deg) translate(-100%,-100%);
+    -ms-transform: rotate(180deg) translateX(-100%,-100%);
+}
+[name=image].rotate270 {
+    transform: rotate(270deg) translateX(-100%);
+    -webkit-transform: rotate(270deg) translateX(-100%);
+    -ms-transform: rotate(270deg) translateX(-100%);
+}
+.card-inset {
+    margin-top: 80px;
+    box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3);
+}
+
+.button-white {
+    background: white;
+    border: 0;
+}
+.arc path {
+    stroke: #fff;
+}
+
+@font-face {
+    font-family: 'fontawesome';
+    src:url('fonts/fontawesome-webfont.eot');
+    src:url('fonts/fontawesome-webfont.eot') format('embedded-opentype'),
+    url('fonts/fontawesome-webfont.woff') format('woff'),
+    url('fonts/fontawesome-webfont.ttf') format('truetype'),
+    url('fonts/fontawesome-webfont.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+.fa-star:before {
+    color: #4cc8ed;
+    font-family: "fontawesome";
+    content: "\f005";
+}
+.fa-star-o:before {
+    color: #bcbec0;
+    font-family: "fontawesome";
+    content: "\f005";
+}
+.fa-circle:before{
+    color: #D8D6D6;
+    font-family: "fontawesome";
+    content:"\f111";
+}
+.fa-circle-o:before{
+    color: #4cc8ee;
+    font-family: "fontawesome";
+    content:"\f111";
+}
+.good-bg{
+    background-color: #19c4b8;
+    font-weight: bold;
+}
+.login-dark-img{
+    background: url("../img/blackImage.png") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.login-dark{
+    background-color: #000000;
+}
+.login-img {
+    background: url("../img/Buildingsideview.png") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.Scheduler-img {
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.error-container {
+    margin: 5px 0;
+}
+
+.error-container:last-child {
+    margin: 5px 0 0;
+}
+
+.error {
+    padding: 10px 16px;
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #555;
+    vertical-align: middle;
+}
+
+.error i {
+    font-size: 24px;
+    color: #B83E2C;
+    vertical-align: middle;
+}
+
+.last-error-container > .error {
+    padding: 10px 16px 0;
+}
+
+.has-errors {
+    border-bottom: 3px solid #B83E2C;
+}
+
+.no-errors {
+    border-bottom: 3px solid green;
+}
+.fc-state-default{
+    background: #19c4b8!important;
+}
+.fc-state-active{
+    background-color: white!important;
+}
+.grey-bg{
+    background-color: grey;
+    color: white;
+    font-weight: bold;
+}
+.tabs-grey > .tabs, .tabs.tabs-stable {
+    border-color: #b2b2b2;
+    background-color: grey;
+    background-image: linear-gradient(0deg, #b2b2b2, #b2b2b2 50%, transparent 50%);
+    color: #444; }
+.tabs-grey > .tabs .tab-item .badge, .tabs.tabs-stable .tab-item .badge {
+    background-color: orange;
+    color: #ffffff;
+}
+i.icon  {
+    color: #ffffff;
+}
+.fc-center {
+    padding: 0 1px;
+    white-space: nowrap;
+}
+.fc-toolbar {
+    margin-bottom: 0 !important;
+}
+.alert {
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid transparent;
+    border-radius: 0;
+}
+.alert-danger {
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    color: #a94442;
+
+}
+.alert p{
+    font-size: 11px;
+    margin-bottom: 0px;
+}
+
+#background
+{
+    left: 0px;
+    top: 0px;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    overflow: hidden;
+    z-index:0;
+}
+
+#Layer7
+{
+    right: 0px;
+    top: -1px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index:1;
+}
+
+#Rectangle12
+{
+
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index:2;
+}
+
+#Rectangle8copy
+{
+
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index:3;
+    opacity: 0.5;
+}
+
+#Layer5
+{
+    left: 0px;
+    bottom: 0px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index:4;
+    opacity: 0.7;
+}
+
+#title
+{
+    bottom:30px;
+    position: absolute;
+    width: 100%;
+    text-align:  center;
+    height: 11px;
+    z-index:5;
+    color : white;
+}
+
+#Password
+{
+    left: 63px;
+    top: 351px;
+    position: absolute;
+    width: 81px;
+    height: 14px;
+    z-index:6;
+}
+
+#Rectangle10
+{
+    left: 54px;
+    top: 333px;
+    position: absolute;
+    width: 219px;
+    height: 4px;
+    z-index:7;
+}
+
+#Email
+{
+    left: 63px;
+    top: 306px;
+    position: absolute;
+    width: 43px;
+    height: 14px;
+    z-index:8;
+}
+
+#NeedhelpCallSupport
+{
+    left: 81px;
+    top: 440px;
+    position: absolute;
+    width: 155px;
+    height: 12px;
+    z-index:9;
+}
+
+#RoundedRectangle2cop
+{
+    left: 58px;
+    top: 394px;
+    position: absolute;
+    width: 205px;
+    height: 36px;
+    z-index:10;
+}
+
+#Login
+{
+    left: 142px;
+    top: 406px;
+    position: absolute;
+    width: 38px;
+    height: 14px;
+    z-index:11;
+}
+
+#TEXTSHAPESYOURWORKHE
+{
+    left: 114px;
+    top: 60px;
+    position: absolute;
+    width: 92px;
+    height: 92px;
+    z-index:12;
+}
+
+#Shadow
+{
+    left: 115px;
+    top: 80px;
+    position: absolute;
+    width: 124px;
+    height: 121px;
+    z-index:13;
+}
+
+#Ellipse2
+{
+    left: 92px;
+    top: 51px;
+    position: absolute;
+    width: 138px;
+    height: 139px;
+    z-index:14;
+}
+
+#Shadow_0
+{
+    right: 50%;
+    margin-right: -53px;
+    top: 68px;
+    position: absolute;
+    width: 1006px;
+    height: 1006px;
+    z-index:1;
+    Opacity:0.7;
+}
+
+#Rectangle13
+{
+    top: 66px;
+    position: absolute;
+    left: 50%;
+    margin-left: -55px;
+    width: 109px;
+    height: 109px;
+    z-index:10;
+    text-align: center;
+}
+
+#Shadow_1
+{
+    right: 50%;
+    margin-right: -29px;
+    top: 90px;
+    position: absolute;
+    z-index:17;
+    Opacity:0.2;
+}
+
+#VectorSmartObject
+{
+    left: 50%;
+    margin-left: -34px;
+    top: 89px;
+    position: absolute;
+    width: 68px;
+    height: 64px;
+    z-index:18;
+}
+
+#Welcome
+{
+    left: 50%;
+    margin-left: -92px;
+    top: 203px;
+    position: absolute;
+    width: 183px;
+    height: 34px;
+    z-index:19;
+}
+
+#WednesdayMay27th
+{
+    left: 94px;
+    top: 250px;
+    position: absolute;
+    width: 138px;
+    height: 14px;
+    z-index:20;
+}
+.listlogin{
+    position:fixed !important;
+    top:238px;
+    width: 100%;
+}
+.listlogin.login label{
+    background-color: transparent !important;
+    border: none;
+    border-bottom: 1px;
+}
+.listlogin.login input{
+    color: white !important;
+}
+.button-log{
+    height: 30px !important;
+    border-radius: 15px;
+    min-height: 30px !important;
+    width: 70% !important;
+    margin: 0 auto;
+    line-height: 30px !important;
+    background: #0861c5;
+    border : none;
+}
+
+.bar.bar-light {
+    height: 73px;
+    border-bottom: 1px solid #0b5195;
+}
+
+.has-header {
+  top: 67px;
+}
+
+.chart{
+    margin-left: 13%;
+}
+
+.fa-star{
+    margin-bottom: 5px;
+}
+
+.fa-star-o{
+    margin-top: -4px;
+    margin-bottom: 5px;
+}
+
+.photo{
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+}
+
+.no-border {
+    border: 0;
+    background-color: #f4f9fd;
+}
+
+.deliver {
+    margin-left: 40%;
+}
+
+.wrench {
+    margin-left: 14px;
+}
+
+.title_bar{
+    margin-left: 15px;
+    font-size: 13px;
+}
+
+#serviceQuality , #service_value{
+    margin-top: -14px;
+}
+
+#workQuality , #work_value {
+    margin-top: -14px;
+}
+
+.information{
+    width: 100%;
+    float: left;
+}
+
+.fc-next-button {
+    position: absolute!important;
+    right: 15px!important;
+    top: 46px!important;
+    font-size: 17px!important;
+    background-color: #f4f9fd!important;
+    border: 0!important;
+    width: 14px;
+}
+
+.fc-prev-button {
+    position: absolute!important;
+    left: 15px!important;
+    top: 46px!important;
+    font-size: 17px!important;
+    background-color: #f4f9fd!important;
+    border: 0!important;
+    width: 14px;
+}
+
+.fc-icon-left-single-arrow {
+    left:-13px;
+}
+
+.fc-icon-right-single-arrow {
+    right:13px;
+}
+.fc-today-button {
+    background-color: #54c9eb!important;
+    color: white!important;
+    text-shadow: none !important;
+    margin-left: 1em!important;
+}
+
+.fc-month-button , .fc-agendaWeek-button , .fc-agendaDay-button {
+    background-color: #54c9eb!important;
+    color: white!important;
+    text-shadow: none !important;
+}
+
+.fc-state-active {
+    background-color: white !important;
+    color:black !important; 
+}
+
+.fc-change-schedule {
+    margin-left: 0px!important;
+    background-color: #387EF5;
+    border: 0;
+    color: white;
+    border-radius: 4px;
+}

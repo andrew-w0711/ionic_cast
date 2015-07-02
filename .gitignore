@@ -1,0 +1,4 @@
+./server/node_modules
+./cast-force-mobile-app/node_modules
+cast-mobile/plugins
+cast-mobile/node_modules

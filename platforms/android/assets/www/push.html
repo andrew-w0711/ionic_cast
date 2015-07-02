@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="cordova.js"></script>
+    <script src="lib/ng-cordova.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/services.js"></script>
+</head>
+<body ng-app="app" ng-controller="AppCtrl">
+<div class="list">
+    <div class="row">
+        <br>
+    </div>
+    <div class="row">
+        <div class="col col-20">
+        </div>
+        <div class="col col-60">
+            <img src="img/logo.png" class="img-responsive" style="display: block;margin: 0 auto;">
+        </div>
+        <div class="col col-20">
+        </div>
+    </div>
+    <div class="row">
+        <br>
+        <br>
+    </div>
+    <div class="row">
+        <div class="col col-10">
+        </div>
+
+        <div class="col-80">
+            <fieldset>
+                <legend style="border:none !important;width: auto !important;">Username</legend>
+                <div id="statx">
+                    Push test ayman
+                </div>
+                <div class="item-input-inset">
+                    <label class="item-input-wrapper">
+                        <input type="text" required ng-model="username" name="name" placeholder="username">
+                    </label>
+                </div>
+            </fieldset>
+        </div>
+        <div class="col col-10">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-10">
+        </div>
+        <div class="col-80">
+            <fieldset>
+                <legend style="border:none !important;width: auto !important;">Password</legend>
+                <div class="item-input-inset">
+                    <label class="item-input-wrapper">
+                        <input type="password" required ng-model="password" name="password" placeholder="password">
+                    </label>
+                </div>
+            </fieldset>
+        </div>
+        <div class="col col-10">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-20">
+        </div>
+        <div class="col col-60">
+            <a class="button button-block  button-clear button-dark">Forget Password ?</a>
+        </div>
+        <div class="col col-20">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-20">
+        </div>
+        <div class="col col-60">
+            <button class="button button-block button-positive" ng-click="subscribe()">
+                Log In
+            </button>
+        </div>
+        <div class="col col-20">
+        </div>
+    </div>
+</div>
+</body>
+</html>

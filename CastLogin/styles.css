@@ -1,0 +1,219 @@
+ body {
+	margin: 0;
+	padding: 0;
+ }
+ 
+ #background 
+{ 
+	 left: 0px; 
+	 top: 0px; 
+	 position: relative; 
+	 margin-left: auto; 
+	 margin-right: auto; 
+	 width: 320px;
+	 height: 536px; 
+	 overflow: hidden;
+	 z-index:0;
+	} 
+
+ #Layer7 
+{ 
+	 left: -344px; 
+	 top: -1px; 
+	 position: absolute; 
+	 width: 689px;
+	 height: 542px;
+	 z-index:1;
+} 
+
+ #Rectangle12 
+{ 
+	 left: -67px; 
+	 top: -60px; 
+	 position: absolute; 
+	 width: 467px;
+	 height: 665px;
+	 z-index:2;
+} 
+
+ #Rectangle8copy 
+{ 
+	 left: -52px; 
+	 top: -30px; 
+	 position: absolute; 
+	 width: 444px;
+	 height: 621px;
+	 z-index:3;
+} 
+
+ #Layer5 
+{ 
+	 left: 0px; 
+	 top: 278px; 
+	 position: absolute; 
+	 width: 320px;
+	 height: 404px;
+	 z-index:4;
+} 
+
+ #title 
+{ 
+	 left: 62px; 
+	 top: 512px; 
+	 position: absolute; 
+	 width: 199px;
+	 height: 11px;
+	 z-index:5;
+} 
+
+ #Password 
+{ 
+	 left: 63px; 
+	 top: 351px; 
+	 position: absolute; 
+	 width: 81px;
+	 height: 14px;
+	 z-index:6;
+} 
+
+ #Rectangle10 
+{ 
+	 left: 54px; 
+	 top: 333px; 
+	 position: absolute; 
+	 width: 219px;
+	 height: 4px;
+	 z-index:7;
+} 
+
+ #Email 
+{ 
+	 left: 63px; 
+	 top: 306px; 
+	 position: absolute; 
+	 width: 43px;
+	 height: 14px;
+	 z-index:8;
+} 
+
+ #NeedhelpCallSupport 
+{ 
+	 left: 81px; 
+	 top: 440px; 
+	 position: absolute; 
+	 width: 155px;
+	 height: 12px;
+	 z-index:9;
+} 
+
+ #RoundedRectangle2cop 
+{ 
+	 left: 58px; 
+	 top: 394px; 
+	 position: absolute; 
+	 width: 205px;
+	 height: 36px;
+	 z-index:10;
+} 
+
+ #Login 
+{ 
+	 left: 142px; 
+	 top: 406px; 
+	 position: absolute; 
+	 width: 38px;
+	 height: 14px;
+	 z-index:11;
+} 
+
+ #TEXTSHAPESYOURWORKHE 
+{ 
+	 left: 114px; 
+	 top: 60px; 
+	 position: absolute; 
+	 width: 92px;
+	 height: 92px;
+	 z-index:12;
+} 
+
+ #Shadow 
+{ 
+	 left: 115px; 
+	 top: 80px; 
+	 position: absolute; 
+	 width: 124px;
+	 height: 121px;
+	 z-index:13;
+} 
+
+ #Ellipse2 
+{ 
+	 left: 92px; 
+	 top: 51px; 
+	 position: absolute; 
+	 width: 138px;
+	 height: 139px;
+	 z-index:14;
+} 
+
+ #Shadow_0 
+{ 
+	 left: -792px; 
+	 top: 68px; 
+	 position: absolute; 
+	 width: 1006px;
+	 height: 1006px;
+	 z-index:1;
+	 Opacity:0.7;
+} 
+
+ #Rectangle13 
+{ 
+	 left: 107px; 
+	 top: 66px; 
+	 position: absolute; 
+	 width: 109px;
+	 height: 109px;
+	 z-index:10;
+} 
+
+ #Shadow_1 
+{ 
+	 left: -776px; 
+	 top: 90px; 
+	 position: absolute; 
+	 width: 967px;
+	 height: 963px;
+	 z-index:17;
+	 Opacity:0.4;
+} 
+
+ #VectorSmartObject 
+{ 
+	 left: 124px; 
+	 top: 89px; 
+	 position: absolute; 
+	 width: 68px;
+	 height: 64px;
+	 z-index:18;
+} 
+
+ #Welcome 
+{ 
+	 left: 69px; 
+	 top: 203px; 
+	 position: absolute; 
+	 width: 183px;
+	 height: 34px;
+	 z-index:19;
+} 
+
+ #WednesdayMay27th 
+{ 
+	 left: 94px; 
+	 top: 250px; 
+	 position: absolute; 
+	 width: 138px;
+	 height: 14px;
+	 z-index:20;
+} 

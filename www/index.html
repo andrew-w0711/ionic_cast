@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <!--<link href="css/bootstrap/bootstrap.min.css" rel="stylesheet">-->
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="lib/fullcalendar/dist/fullcalendar.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="lib/ng-cordova.js"></script>
+    <script src="cordova.js"></script>
+    <script src='lib/d3.min.js'></script>
+    <script src='lib/angular-google-maps/dist/angular-google-maps.min.js'></script>
+    <script src='lib/angular-messages.min.js'></script>
+    <script src='lib/jquery-2.1.4.min.js'></script>
+    <script src='lib/moment.min.js'></script>
+
+    <script src='lib/jquery-ui-1.10.2.custom.min.js'></script>
+    <script src='lib/angular-ui-calendar/src/calendar.js'></script>
+    <!--<script src='lib/jquery-ui.custom.min.js'></script>-->
+    <script src='lib/fullcalendar/dist/fullcalendar.js'></script>
+    <script src='lib/fullcalendar/dist/gcal.js'></script>
+    <script src='lib/jquery.ui.touch-punch.min.js'></script>
+    <script src='lib/jquery.fullcalendar.ipad.js'></script>
+    <script src='http://maps.googleapis.com/maps/api/js?v=3&sensor=false'></script>
+
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="app/filters/filters.js"></script>
+    <script src="app/layout/layout.controller.js"></script>
+    <script src="app/login/login.controller.js"></script>
+    <script src="app/logout/logout.controller.js"></script>
+    <script src="app/assignments/assignments.controller.js"></script>
+    <script src="app/profile/profile.controller.js"></script>
+    <script src="app/schedule/schedule.controller.js"></script>
+    <script src="app/messages/messages.controller.js"></script>
+    <script src="js/services.js"></script>
+</head>
+<body ng-app="starter">
+<ion-side-menus>
+    <ion-pane ion-side-menu-content drag-content="false">
+        <ion-nav-view></ion-nav-view>
+    </ion-pane>
+
+    <ion-side-menu side="right" width="140">
+        <ion-content class="grey-bg" scroll="false" ng-controller="AssignmentCtrl">
+            <div class="row">
+                <button class="button icon ion-help button-block grey-bg"
+                        ng-click="faq()">&nbsp;FAQ
+                </button>
+            </div>
+            <div class="row">
+                <button class="button icon ion-android-contact button-block grey-bg"
+                        ng-click="contact()">&nbsp;Contact
+                </button>
+            </div>
+            <div class="row">
+                <button class="button icon ion-clipboard button-block grey-bg"
+                        ng-click="terms()">&nbsp;Terms
+                </button>
+            </div>
+            <div class="row">
+                <button class="button icon ion-power button-block grey-bg"
+                        ng-click="logOut()">&nbsp;Log Out
+                </button>
+            </div>
+        </ion-content>
+    </ion-side-menu>
+
+</ion-side-menus>
+<script id="templates/popover.html" type="text/ng-template">
+    <ion-modal-view style="width:90%;min-height: 300px;top: 10%; left: 5%; right: 5%; bottom: 10%;">
+        <ion-header-bar>
+            <h2 class="title">Direction</h2>
+            <button class="button icon ion-close button-small button-positive" ng-click="closeModal()"></button>
+        </ion-header-bar>
+        <ion-content style="height: 100%;" scroll="false">
+            <div id="map" style="height: 100%;" ></div>
+        </ion-content>
+    </ion-modal-view>
+</script>
+
+<script id="templates/camera.html" type="text/ng-template">
+    <ion-modal-view style="width:90%;min-height: 550px;top: 20%; left: 5%; right: 5%; bottom: 20%;"
+                    class="stable-bg">
+        <ion-header-bar class="bar-positive">
+            <button class="button icon ion-checkmark button-small button-positive" ng-click="useImage()"></button>
+            <button class="button icon ion-refresh button-small button-positive" ng-click="retakeImage()"></button>
+            <button class="button icon ion-reply button-small button-positive" ng-click="rotateImage()"></button>
+            <button class="button icon ion-close button-small button-positive"
+                    ng-click="closeCameraModal()"></button>
+        </ion-header-bar>
+        <ion-content style="height: 100%;" scroll="false">
+            <div class="row row-center">
+                <img name="image" ng-src="{{lastPhoto}}" style="max-width: 100%">
+            </div>
+        </ion-content>
+    </ion-modal-view>
+</script>
+<script id="templates/task.html" type="text/ng-template">
+    <ion-modal-view style="width:96%;min-height: 350px;top: 2%; left: 2%; right: 2%; bottom: 2%;">
+        <ion-header-bar class="bar-stable">
+            <h3 class="title">Task {{taskPeriod}}/ Day {{totalWorkingTime}}</h3>
+            <button class="button icon ion-close button-small button-stable" ng-click="closeTaskModal()"></button>
+        </ion-header-bar>
+        <ion-content style="height: 100%;" scroll="true">
+            <div class="row">
+                <div class="col">
+                    <h4>{{currentAssignment.tasks[0].Store__c.Name}}</h4>
+                </div>
+            </div>
+            <ion-list>
+                <div ng-repeat="task in tasks">
+                    <ion-item class="good-bg"
+                              ng-click="toggleTasks(task)">
+                        <i class="icon" ng-class="isTaskShown(task) ? 'ion-minus' : 'ion-plus'"></i>
+                        &nbsp;
+                        {{task.Name}}
+                    </ion-item>
+                    <ion-item class="item-accordion" ng-show="isTaskShown(task)">
+                        <div class="row">
+                            <h2>Estimate Time: {{task.Scheduled_Minutes__c}} / Count Down: {{cntDown}}</h2>
+                        </div>
+                        <div class="row">
+                            <button class="button icon ion-android-checkbox-outline button-block button-balanced"
+                                    ng-if="!checkOutClicked"
+                                    ng-click="checkIn(task)">
+                                Check In
+                            </button>
+                            <button class="button icon ion-android-checkbox-outline-blank button-block button-assertive"
+                                    ng-if="checkOutClicked" ng-click="checkOut(task)">
+                                Check Out
+                            </button>
+                        </div>
+                        <div class="row">
+                            <div class="col col-33">
+                                <button class="button icon ion-coffee button-block button-positive"
+                                        ng-disabled="isBreakDisabled"
+                                        ng-click="taskBreak()">&nbsp;{{counter}}
+                                </button>
+                            </div>
+                            <div class="col col-33">
+                                <button class="button icon ion-fork button-block button-positive"
+                                        ng-disabled="isLunchDisabled"
+                                        ng-click="taskLunch()">
+                                    &nbsp;Lunch
+                                </button>
+                            </div>
+                            <div class="col col-33">
+                                <button class="button icon button-block button-positive"
+                                        ng-class="taskPauseClass" ng-disabled="!checkOutClicked"
+                                        ng-click="taskPause()">
+                                    &nbsp;{{taskPauseText}}
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <a href="#" ng-click="takePhoto()">Take Photo</a>
+                        </div>
+                        <div class="row">
+                            <img name="image" ng-src="{{taskPhoto}}" style="max-width: 30%">
+                        </div>
+                        <div class="row">
+                            <br>
+                        </div>
+                        <div class="row">
+                            <form name="formData">
+                                <ng-form name="confirmation">
+                                    <div class="panel panel-default"
+                                         ng-repeat="conf in assignment.confirmation"
+                                         ng-hide="confirmation.$valid">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title"><b>{{conf.question_title}}</b></h4>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="form-group">
+                                                <div ng-switch="conf.question_type">
+                                                    <div ng-switch-when="Integer"
+                                                         ng-repeat="a in conf.answers | object2Array | orderBy: '+sort_order'">
+                                                        <input class="form-control" type="number"
+                                                               ng-model="report.data[conf.question_title][a.label]"
+                                                               ng-required="true">
+                                                    </div>
+                                                    <div ng-switch-when="Checkbox Group"
+                                                         ng-repeat="a in conf.answers | object2Array | orderBy: '+sort_order'">
+                                                        <br>
+                                                        <h5>
+                                                            <input type="checkbox"
+                                                                   ng-model="report.data[conf.question_title][a.label]"
+                                                                   value="{{a.label}}" ng-required="true">{{a.label}}
+                                                        </h5>
+                                                    </div>
+                                                    <div class="radio" ng-switch-default
+                                                         ng-repeat="a in conf.answers | object2Array | orderBy: '+sort_order'">
+                                                        <h5>
+                                                            <input type="radio"
+                                                                   ng-model="report.data[conf.question_title][a.label]"
+                                                                   value="{{a.label}}"
+                                                                   ng-required="true">{{a.label}}
+                                                        </h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-form>
+                                <div class="project" ng-repeat="form in assignment.form"
+                                     ng-show="confirmation.$valid">
+                                    <div class="task panel panel-default"
+                                         ng-repeat="task in form.work_items | object2Array | orderBy: '+sort_order'"
+                                         ng-init="index = noPeriods(task.task_title) || $index">
+                                        <div class="panel-heading" ng-show="task.task_title">
+                                            <h3 class="panel-title">#{{$index+1}} -
+                                                {{task.task_title}}</h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div ng-repeat="subtask in task">
+                                                <ng-form name="innerForm">
+                                                    <div class="alert alert-danger" ng-show="subtask.alert"
+                                                         ng-init="index = task.task_title || noPeriods(subtask.alert.productName) + ' - ' + noPeriods(subtask.alert.issue)">
+                                                        <p><b>{{subtask.alert.productName}}
+                                                            -{{subtask.alert.issue}}</b></p>
+
+                                                        <p>{{subtask.alert.comments}}</p>
+
+                                                        <p><b>Recommended Action: </b>{{subtask.alert.recommendedTask}}
+                                                        </p>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <div ng-repeat="subsub in subtask track by $index">
+                                                                <div class="question form-group"
+                                                                     ng-class="{ 'has-error': innerForm.$invalid }"
+                                                                     ng-repeat="q in subsub.question | object2Array | orderBy:sortToInt">
+                                                                    <div class="form-group">
+                                                                        <h4>{{q.question_title}}</h4>
+
+                                                                        <div ng-switch="q.question_type">
+                                                                            <div ng-switch-when="Integer"
+                                                                                 ng-repeat="a in q.answers | object2Array | orderBy: '+sort_order'">
+                                                                                <input class="form-control"
+                                                                                       type="number"
+                                                                                       ng-model="report.data[index][q.question_title]"
+                                                                                       ng-required="true">
+                                                                            </div>
+                                                                            <div class="radio"
+                                                                                 ng-switch-default
+                                                                                 ng-repeat="a in q.answers | object2Array | orderBy: '+sort_order'">
+                                                                                <h5>
+                                                                                    <input type="radio"
+                                                                                           ng-model="report.data[index][q.question_title]"
+                                                                                           value="{{a.label}}"
+                                                                                           ng-required="true"
+                                                                                           ng-click="remove(index)">{{a.label}}
+                                                                                </h5>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="triggers form-group"
+                                                                         ng-repeat="t in subsub.triggers | object2Array | orderBy:sortToInt">
+                                                                        <div ng-repeat="at in t.answer_trigger">
+                                                                            <div class="trigger form-group"
+                                                                                 ng-repeat="trigger in t.triggered_work_item"
+                                                                                 ng-if="at.label == report.data[index][q.question_title]">
+                                                                                <div class="trigger-question form-group"
+                                                                                     ng-class="{ 'has-error': innerForm.$invalid }"
+                                                                                     ng-repeat="tq in trigger.question | object2Array | orderBy:sortToInt">
+                                                                                    <h4>{{tq.question_title}}</h4>
+
+                                                                                    <div ng-switch="tq.question_type">
+                                                                                        <div ng-switch-when="Integer"
+                                                                                             ng-repeat="ta in tq.answers | object2Array | orderBy:sortToInt">
+                                                                                            <input class="form-control"
+                                                                                                   type="number"
+                                                                                                   ng-model="report.data[index].triggers[tq.question_title]"
+                                                                                                   ng-required="true">{{ta.label}}
+                                                                                        </div>
+                                                                                        <div ng-switch-when="Text Area"
+                                                                                             ng-repeat="ta in tq.answers | object2Array | orderBy:sortToInt">
+                                                                                                            <textarea
+                                                                                                                    class="form-control"
+                                                                                                                    placeholder="Enter explanation here."
+                                                                                                                    ng-required="true"
+                                                                                                                    ng-model="report.data[index].triggers[tq.question_title]"></textarea>
+                                                                                        </div>
+                                                                                        <div class="radio"
+                                                                                             ng-switch-default
+                                                                                             ng-repeat="ta in tq.answers | object2Array | orderBy:sortToInt">
+                                                                                            <h5>
+                                                                                                <input type="radio"
+                                                                                                       ng-model="report.data[index].triggers[tq.question_title]"
+                                                                                                       value="{{ta.label}}"
+                                                                                                       ng-required="true">{{ta.label}}
+                                                                                            </h5>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="sub-trigger-question"
+                                                                                         ng-if="report.data[index].triggers[tq.question_title]">
+                                                                                        <div ng-repeat="ts in trigger.triggers">
+                                                                                            <div ng-repeat="at in ts.answer_trigger"
+                                                                                                 ng-if="at.label == report.data[index].triggers[tq.question_title]">
+                                                                                                <div class="form-group"
+                                                                                                     ng-class="{ 'has-error': innterForm.$invalid }"
+                                                                                                     ng-repeat="tti in ts.triggered_work_item">
+                                                                                                    <label>Explain</label>
+                                                                                                                    <textarea
+                                                                                                                            class="form-control"
+                                                                                                                            placeholder="Enter explanation here."
+                                                                                                                            ng-required="true"
+                                                                                                                            ng-model="report.data[index].triggers[at.label]"></textarea>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="item form-group"
+                                                                 ng-class="{ 'has-error': innerForm.$invalid }"
+                                                                 ng-repeat="item in subtask.item | object2Array | orderBy:sortToInt">
+                                                                <div class="question"
+                                                                     ng-repeat="q in item.question | object2Array | orderBy:sortToInt">
+                                                                    <div class="form-group">
+                                                                        <h4>{{q.question_title}}</h4>
+
+                                                                        <div ng-switch="q.question_type">
+                                                                            <div ng-switch-when="Integer"
+                                                                                 ng-repeat="a in q.answers | object2Array | orderBy: '+sort_order'">
+                                                                                <input class="form-control"
+                                                                                       type="number"
+                                                                                       ng-model="report.data[index][q.question_title]"
+                                                                                       ng-required="true">
+                                                                            </div>
+                                                                            <div class="radio"
+                                                                                 ng-switch-default
+                                                                                 ng-repeat="a in q.answers | object2Array | orderBy: '+sort_order'">
+                                                                                <h5>
+                                                                                    <input type="radio"
+                                                                                           ng-model="report.data[index][q.question_title]"
+                                                                                           value="{{a.label}}"
+                                                                                           ng-required="true"
+                                                                                           ng-click="remove(index)">{{a.label}}
+                                                                                </h5>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="triggers form-group"
+                                                                         ng-repeat="t in item.triggers | object2Array | orderBy:sortToInt">
+                                                                        <div ng-repeat="at in t.answer_trigger">
+                                                                            <div class="trigger form-group"
+                                                                                 ng-repeat="trigger in t.triggered_work_item"
+                                                                                 ng-if="at.label == report.data[index][q.question_title]">
+                                                                                <div class="trigger-question form-group"
+                                                                                     ng-class="{ 'has-error': innerForm.$invalid }"
+                                                                                     ng-repeat="tq in trigger.question | object2Array | orderBy:sortToInt">
+                                                                                    <h4>{{tq.question_title}}</h4>
+
+                                                                                    <div ng-switch="tq.question_type">
+                                                                                        <div ng-switch-when="Integer"
+                                                                                             ng-repeat="ta in tq.answers | object2Array | orderBy:sortToInt">
+                                                                                            <input class="form-control"
+                                                                                                   type="number"
+                                                                                                   ng-model="report.data[index].triggers[tq.question_title]"
+                                                                                                   ng-required="true">{{ta.label}}
+                                                                                        </div>
+                                                                                        <div ng-switch-when="Text Area"
+                                                                                             ng-repeat="ta in tq.answers | object2Array | orderBy:sortToInt">
+                                                                                                            <textarea
+                                                                                                                    class="form-control"
+                                                                                                                    placeholder="Enter explanation here."
+                                                                                                                    ng-required="true"
+                                                                                                                    ng-model="report.data[index].triggers[tq.question_title]"></textarea>
+                                                                                        </div>
+                                                                                        <div class="radio"
+                                                                                             ng-switch-default
+                                                                                             ng-repeat="ta in tq.answers | object2Array | orderBy:sortToInt">
+                                                                                            <h5>
+                                                                                                <input type="radio"
+                                                                                                       ng-model="report.data[index].triggers[tq.question_title]"
+                                                                                                       value="{{ta.label}}"
+                                                                                                       ng-required="true">{{ta.label}}
+                                                                                            </h5>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="sub-trigger-question"
+                                                                                         ng-if="report.data[index].triggers[tq.question_title]">
+                                                                                        <div ng-repeat="ts in trigger.triggers">
+                                                                                            <div ng-repeat="at in ts.answer_trigger"
+                                                                                                 ng-if="at.label == report.data[index].triggers[tq.question_title]">
+                                                                                                <div class="form-group"
+                                                                                                     ng-class="{ 'has-error': innerForm.$invalid }"
+                                                                                                     ng-repeat="tti in ts.triggered_work_item">
+                                                                                                    <label>Explain</label>
+                                                                                                                    <textarea
+                                                                                                                            class="form-control"
+                                                                                                                            placeholder="Enter explanation here."
+                                                                                                                            ng-required="true"
+                                                                                                                            ng-model="report.data[index].triggers[at.label]"></textarea>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6"
+                                                             ng-show="innerForm.$dirty">
+                                                            <div ng-show="innerForm.$valid"
+                                                                 class="alert alert-success"><span
+                                                                    class="glyphicon glyphicon-ok-sign"></span>
+                                                                Looks good.
+                                                            </div>
+                                                            <div ng-show="innerForm.$invalid"
+                                                                 class="alert alert-danger"><span
+                                                                    class="glyphicon glyphicon-remove-sign"></span>
+                                                                All fields are required.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </ng-form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <ng-form name="innerForm"
+                                             ng-repeat="pic in form.pictures | object2Array | orderBy: '+sort_order'"
+                                             ng-init="picIndex = $index">
+                                        <div class="picture panel panel-default"
+                                             ng-repeat="p in pic track by $index">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">{{p.picture_label}}</h3>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="row form-group">
+                                                    <div class="col-6">
+                                                        <div class="avatar">
+                                                            <img class="img-responsive img-circle"
+                                                                 ngf-src="report.file[picIndex][0]"
+                                                                 ngf-default-src="https://placehold.it/250/eee&amp;text=Image+Missing"
+                                                                 ngf-accept="'image/*'">
+                                                            <button class="btn btn-default" name="drop"
+                                                                    ngf-select
+                                                                    ng-model="report.file[picIndex]"
+                                                                    ngf-multiple="false" required="">
+                                                                Select Photo
+                                                            </button>
+                                                        </div>
+                                                        <p>&nbsp;</p>
+                                                        <progressbar ng-show="progress"
+                                                                     class="progress-striped"
+                                                                     ng-value="{{progress}}"
+                                                                     type="success">{{progress}}%
+                                                        </progressbar>
+                                                        <div ng-show="error" class="alert alert-danger"
+                                                             ng-bind-html="error"></div>
+                                                    </div>
+                                                    <div class="col-6" ng-show="innerForm.$dirty">
+                                                        <div ng-show="innerForm.$valid"
+                                                             class="alert alert-success"><span
+                                                                class="glyphicon glyphicon-ok-sign"></span>
+                                                            Looks good.
+                                                        </div>
+                                                        <div ng-show="innerForm.$invalid"
+                                                             class="alert alert-danger"><span
+                                                                class="glyphicon glyphicon-remove-sign"></span>
+                                                            All fields are required.
+                                                        </div>
+                                                        <div class="well">
+                                                            <code>{{innerForm.drop.$error.required |
+                                                                json}}</code>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-form>
+                                </div>
+                            </form>
+                        </div>
+                    </ion-item>
+                </div>
+            </ion-list>
+        </ion-content>
+    </ion-modal-view>
+</script>
+</body>
+</html>

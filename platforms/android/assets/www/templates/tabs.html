@@ -1,0 +1,51 @@
+<ion-header-bar align-title="left" class="bar-light" ng-controller="layoutCtrl">
+    <div class="col col-20">
+        <img ng-src="{{employee.Photo}}" class = "photo">
+    </div>
+    <div class="buttons col col-70">
+        {{employee.First_Name__c}} {{employee.Last_Name__c }}
+        <br>
+        {{employee.Name}}
+        <br>
+        {{employee.datetime}}
+    </div>
+    <div class="col col-10">
+        <button class="button button-icon button-clear ion-navicon" style="margin-top: 9px;"ng-click="openMenu()"></button>
+    </div>
+</ion-header-bar>
+
+<ion-content scroll="false">
+    <ion-view>
+        <ion-nav-bar class="bar-positive">
+            <ion-nav-back-button class="button-icon"><span class="icon ion-ios7-arrow-left"></span></ion-nav-back-button>
+        </ion-nav-bar>
+        <ion-nav-buttons side="left">
+            <button class="button button-icon button-clear ion-navicon" ng-click="openMenu()"></button>
+        </ion-nav-buttons>
+        <ion-tabs class="tabs-icon-top tabs-positive">
+            <!-- Dashboard Tab -->
+            <ion-tab title="Home" icon-off="ion-ios-home-outline" ui-sref="tab.assignments" icon-on="ion-ios-home"
+                     href="#/tab/assignments">
+                <ion-nav-view name="tab-assignments"></ion-nav-view>
+            </ion-tab>
+
+            <ion-tab title="profile" icon-off="ion-ios-person-outline" ui-sref="tab.profile" icon-on="ion-ios-person"
+                     href="#/tab/profile">
+                <ion-nav-view name="tab-profile"></ion-nav-view>
+            </ion-tab>
+
+            <ion-tab title="Schedule" icon-off="ion-ios-calendar-outline" ui-sref="tab.schedule"
+                     icon-on="ion-ios-calendar"
+                     href="#/tab/schedule">
+                <ion-nav-view name="tab-schedule"></ion-nav-view>
+            </ion-tab>
+
+            <ion-tab title="Messages" icon-off="ion-ios-chatbubble-outline" badge="20"
+                     icon-on="ion-ios-chatbubble-outline"
+                     href="#/tab/messages">
+                <ion-nav-view name="tab-messages"></ion-nav-view>
+            </ion-tab>
+        </ion-tabs>
+    </ion-view>
+</ion-content>
+

@@ -1,0 +1,92 @@
+<ion-view view-title="Dashboard" ng-init="getData()">
+    <ion-content style="background-color: #f4f9fd;bottom: 0px;">
+        <div class="row item no-border title_bar">
+            <div class="col col-33">
+                On-time service (%)
+            </div>
+            <div class="col col-33 col-offset-10 chart">
+                Quality of work (%)
+            </div>
+        </div>
+        <div class="row item no-border">
+            <div class="col col-33">
+                <div id="serviceQuality"></div>
+            </div>
+            <div class="col col-33 col-offset-10 chart">
+                <div id="workQuality"></div>
+            </div>
+            <div class="col col-33 col-offset-10 feedback">
+                <div class="fa-star-o"></div>
+                <div class="fa-star-o"></div>
+                <div class="fa-star-o"></div>
+                <div class="fa-star-o"></div>
+                <div class="fa-star-o"></div>
+            </div>
+        </div>
+        <div class="row item no-border" style="margin-top: -22px;">
+            <div class="col col-25">
+                <div class="fa-circle-o" style="font-size: 9px">&nbsp;On-time service</div>
+            </div>
+            <div class="col col-20">
+                <div class="fa-circle" style="font-size: 9px">&nbsp;Late service</div>
+            </div>
+            <div class="col col-20">
+                <div class="fa-circle-o" style="font-size: 9px">&nbsp;Quality work</div>
+            </div>
+            <div class="col col-20">
+                <div class="fa-circle" style="font-size: 9px">&nbsp;Low quality work</div>
+            </div>
+        </div>
+        <ion-list>
+            <ion-item ng-repeat="assignment in assignments"
+                      Style="border-style: none;background-color:transparent;padding-bottom:0px ">
+                <div class="card" style="margin:0px;padding: 0px" ng-click="editTask(assignment._id, assignment)">
+                    <div class="row">
+                        <div class="col col-25">
+                            <h3 style="line-height: 30px;color: white;vertical-align: middle;background-color: #183058;border-radius:0;width: 80px;height: 31px;font-size: 18px;  font-family: myFont;font-weight: 100;"
+                                class="rounded text-center good-bg button-block positive button-small dark-border">
+                                {{assignment.Scheduled_Visit_Date_Time__c | date : 'shortTime'}}
+                            </h3>
+                        </div>
+                        <div class="col col-25">
+                            <h4 style="line-height: 15px;background-color: #bcbec0;color: white;border-radius: 0;  width: 80px;height: 31px;margin-left: 12px;"
+                                class="rounded text-center stable-bg positive button-small dark-border">VISIT TIME<br>{{assignment.minutes}}
+                            </h4>
+                        </div>
+                        <div class="col col-33">
+                            <button type="button" class="button button-block button-small"
+                                    style="margin-top: 0px;background-color:#115393;color:white;border-radius:4px;  width: 110px;height: 33px;margin-left: 26px;font-size: 16px;"
+                                    ng-click="getMapDirection(e,assignment.tasks[0].Store__c.MALatitude__c,assignment.tasks[0].Store__c.MALongitude__c)">
+                                Get Directions
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: -5px">
+                        <div class="col col-50">
+                            <h2 style="font-size:18px!important;color: #387EF5!important;">{{assignment.tasks[0].Store__c.Name}}</h2>
+                        </div>
+                        <div class="col col-50" style="text-align:right;  padding-right: 1em!important;">
+                            {{assignment.Name}}
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: -15px;!important">
+                        <div class="col">
+                            <h4>
+                                {{assignment.tasks[0].Store__c.Store_Address__c}}
+                                <br>
+                                {{assignment.tasks[0].Store__c.City__c}},
+                                {{assignment.tasks[0].Store__c.Store_State__c[0]}}
+                                {{assignment.tasks[0].Store__c.Zip_Code__c}}
+                                <img class="deliver" src="images/deliver.png">
+                                <img class="wrench" src="images/wrench.png">
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </ion-item>
+        </ion-list>
+        <ion-infinite-scroll distance="10%"></ion-infinite-scroll>
+    </ion-content>
+
+
+</ion-view>

@@ -1,0 +1,79 @@
+<ion-view view-title="Profile" ng-init="loadProfile()">
+    <ion-content style="background-color: #f4f9fd;bottom: 0px;">
+        <div class="row item no-border" style="margin-top: 8px;background-color: #FFF;font-size:14px">
+            <div class = "col col-50">
+                <div class="row">
+                    Address
+                </div>
+                <div class="row">
+                    Phone Number(Home)
+                </div>
+                <div class="row">
+                    Phone Number(Cell)
+                </div>
+            </div>
+            <div class = "col col-50">
+                <div class="row">
+                    {{model.Street_Address__c}}
+                </div>
+                <div class="row">
+                    {{model.Home_Phone__c}}
+                </div>
+                <div class="row">
+                    {{model.Cell_Phone__c}}
+                </div>
+            </div>
+        </div>
+        <div class="row item no-border title_bar">
+            <div class="col col-33">
+                On-time service (%)
+            </div>
+            <div class="col col-33 col-offset-10 chart">
+                Quality of work (%)
+            </div>
+        </div>
+        <div class="row item no-border">
+            <div class="col col-33">
+                <div id="service_value"></div>
+            </div>
+            <div class="col col-33 col-offset-10 chart">
+                <div id="work_value"></div>
+            </div>
+            <div class="col col-33 col-offset-10 feedback_pro">
+                <div class="fa-star-o"></div>
+                <div class="fa-star-o"></div>
+                <div class="fa-star-o"></div>
+                <div class="fa-star-o"></div>
+                <div class="fa-star-o"></div>
+            </div>
+        </div>
+        <div class="row item no-border" style="margin-top: -23px;">
+            <div class="col col-25">
+                <div class="fa-circle-o" style="font-size: 9px">&nbsp;On-time service</div>
+            </div>
+            <div class="col col-20">
+                <div class="fa-circle" style="font-size: 9px">&nbsp;Late service</div>
+            </div>
+            <div class="col col-20">
+                <div class="fa-circle-o" style="font-size: 9px">&nbsp;Quality work</div>
+            </div>
+            <div class="col col-20">
+                <div class="fa-circle" style="font-size: 9px">&nbsp;Low quality work</div>
+            </div>
+        </div>
+        <div class="row item no-border" style="margin-left:5px;background-color:#bcbec0; width:95%;  font-family: myFont;font-size: 13px;text-align: center;">
+            <div class="col col-20">Employee</div>
+            <div class="col col-33">Overall Score</div>
+            <div class="col col-20">Trending</div>
+            <div class="col col-33">City/State</div>
+        </div>
+        <div class="row item no-border" style="margin-left:5px;background-color:#fff; width:95%;  font-family: myFont;font-size: 11px;text-align: center;">
+            <div class="col col-20">{{model.First_Name__c}} {{model.Last_Name__c}}</div>
+            <div class="col col-33">{{model.Employee_Score__c}}%</div>
+            <div class="col col-20 icon ion-chevron-up" style="color:#19c4b8"></div>
+            <div class="col col-33">{{model.City__c}}/{{model.State__c}}</div>
+        </div>
+    </ion-content>
+
+
+</ion-view>
